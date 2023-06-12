@@ -1,0 +1,28 @@
+{
+  "name": "sito-node-mysql",
+  "version": "1.0.0",
+  "description": "node interface for mysql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SitoNumbis/sito-node-mysql.git"
+  },
+  "keywords": [
+    "node",
+    "javascript",
+    "mysql"
+  ],
+  "author": "sitonumbis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SitoNumbis/sito-node-mysql/issues"
+  },
+  "homepage": "https://github.com/SitoNumbis/sito-node-mysql#readme",
+  "dependencies": {
+    "mysql2": "^3.3.4",
+    "v4": "^0.0.1"
+  }
+}
