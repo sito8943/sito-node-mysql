@@ -2,6 +2,18 @@
 
 sito-node-mysql
 
+# Create connection
+
+```
+    const { createConnection } = require("sito-node-mysql");
+    createConnection({host, user, password, database});
+    // you can initialize your connection in the application
+
+```
+
+After the creation of the connection you can use the CRUD methods
+
+
 # Functions
 
 _Using [mysql2](https://www.npmjs.com/package/mysql2)_
