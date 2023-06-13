@@ -147,7 +147,7 @@ const update = async (table, attributes, values, where) => {
  * @param {number} start
  * @param {number} end
  */
-const select = async (table, attributes, where, start, end, count) => {
+const select = async (table, attributes, where, start = 0, end = 0, count = 0) => {
   const connectionA = db;
   const [rows] = await connectionA.execute(
     `SELECT ${
