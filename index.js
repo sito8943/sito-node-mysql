@@ -31,11 +31,11 @@ const arrayToUPDATE = (array, attributes) => {
   let string = "";
   attributes.forEach((attribute, i) => {
     if (array[attribute])
-      string += `${attribute} = '${
+      string += `${attribute} = ${
         typeof array[attribute] === "string"
           ? `'${array[attribute]}'`
           : array[attribute]
-      }'`;
+      }`;
     if (i < attributes.length - 1) string += ",";
   });
   return string;
@@ -58,7 +58,9 @@ const prepareWhere = (where) => {
             case "BETWEEN":
               return `${i !== 0 ? logic : ""} BETWEEN ${value} AND ${value1}`;
             case "IN":
-              return `${i !== 0 ? logic : ""} ${attribute} IN (${value.toString()})`;
+              return `${
+                i !== 0 ? logic : ""
+              } ${attribute} IN (${value.toString()})`;
             default:
               string = `${i !== 0 ? logic : ""} ${attribute} ${operator} ${
                 typeof value === "string" ? `'${value}'` : value
@@ -131,7 +133,7 @@ const insert = async (table, attributes, values) => {
 const update = async (table, attributes, values, where) => {
   const connectionA = db;
   const result = await connectionA.execute(
-    `UPDATE  ${table} SET (${arrayToUPDATE(values, attributes)}) ${prepareWhere(
+    `UPDATE  ${table} SET ${arrayToUPDATE(values, attributes)} ${prepareWhere(
       where
     )}`
   );
@@ -147,7 +149,14 @@ const update = async (table, attributes, values, where) => {
  * @param {number} start
  * @param {number} end
  */
-const select = async (table, attributes, where, start = 0, end = 0, count = 0) => {
+const select = async (
+  table,
+  attributes,
+  where,
+  start = 0,
+  end = 0,
+  count = 0
+) => {
   const connectionA = db;
   const [rows] = await connectionA.execute(
     `SELECT ${
