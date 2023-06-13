@@ -113,13 +113,13 @@ const preparePagination = (start, end, count) => {
 const insert = async (table, attributes, values) => {
   const id = v4();
   const connectionA = connection.db;
-  const result = await connectionA?.execute(
+  await connectionA?.execute(
     `INSERT INTO ${table}(${attributes.toString()}) VALUES(${arrayToSQL(
       { id, ...values },
       attributes
     )})`
   );
-  return result;
+  return id;
 };
 
 /**
