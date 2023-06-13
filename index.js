@@ -47,11 +47,38 @@ const arrayToUPDATE = (array, attributes) => {
 const prepareWhere = (where) => {
   try {
     if (where.length) {
+      let string = "WHERE";
+      where.forEach(
+        (
+          /** @type {{ attribute: any; operator: any; value: any; value1: any; logic: any; }} */ cond,
+          /** @type {number} */ i
+        ) => {
+          const { attribute, operator, value, value1, logic } = cond;
+          switch (operator) {
+            case "BETWEEN":
+              return `${i !== 0 ? logic : ""} BETWEEN ${value} AND ${value1}`;
+            case "IN":
+              return `${i !== 0 ? logic : ""} ${attribute} IN (${value.toString()})`;
+            default:
+              string = `${i !== 0 ? logic : ""} ${attribute} ${operator} ${
+                typeof value === "string" ? `'${value}'` : value
+              }`;
+              break;
+          }
+        }
+      );
     } else if (where.attribute && where.operator && where.value) {
-      const { attribute, operator, value } = where;
-      return `WHERE ${attribute} ${operator} ${
-        typeof value === "string" ? `'${value}'` : value
-      }`;
+      const { attribute, operator, value, value1 } = where;
+      switch (operator) {
+        case "BETWEEN":
+          return `WHERE ${attribute} BETWEEN ${value} AND ${value1}`;
+        case "IN":
+          return `WHERE ${attribute} IN (${value.toString()})`;
+        default:
+          return `WHERE ${attribute} ${operator} ${
+            typeof value === "string" ? `'${value}'` : value
+          }`;
+      }
     }
   } catch (err) {
     console.error(err);

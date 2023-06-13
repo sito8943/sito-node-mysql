@@ -13,7 +13,6 @@ sito-node-mysql
 
 After the creation of the connection you can use the CRUD methods
 
-
 # Functions
 
 _Using [mysql2](https://www.npmjs.com/package/mysql2)_
@@ -61,4 +60,29 @@ _Using [mysql2](https://www.npmjs.com/package/mysql2)_
 
     // sql => DELETE FROM users WHERE user='sito8943';
 
+```
+
+## WHERE syntax !!! IMPORTANT
+
+### Where as object (single where)
+
+```
+{
+    attribute: "string",
+    operator: "=" // can be =, >, <, >=, <=, <>, BETWEEN, LIKE, IN
+    value: "string", // or number, NOTE can be and array if you are using IN operator
+    value1: "string" or number // if you are using BETWEEN operator
+}
+```
+
+### Where as array (multi where)
+
+```
+[{
+    attribute: "string",
+    operator: "=" // can be =, >, <, >=, <=, <>, BETWEEN, LIKE, IN
+    value: "string", // or number, NOTE can be and array if you are using IN operator
+    value1: "string" or number // if you are using BETWEEN operator
+    logic: "AND", // or "OR" the firs logic will be not taken
+}]
 ```
