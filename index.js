@@ -1,6 +1,6 @@
 // @ts-check
 
-const { db } = require("./connection");
+const { connection } = require("./connection");
 const { v4 } = require("uuid");
 
 /**
@@ -112,8 +112,8 @@ const preparePagination = (start, end, count) => {
  */
 const insert = async (table, attributes, values) => {
   const id = v4();
-  const connectionA = db;
-  const result = await connectionA.execute(
+  const connectionA = connection.db;
+  const result = await connectionA?.execute(
     `INSERT INTO ${table}(${attributes.toString()}) VALUES(${arrayToSQL(
       { id, ...values },
       attributes
@@ -131,8 +131,8 @@ const insert = async (table, attributes, values) => {
  * @returns
  */
 const update = async (table, attributes, values, where) => {
-  const connectionA = db;
-  const result = await connectionA.execute(
+  const connectionA = connection.db;
+  const result = await connectionA?.execute(
     `UPDATE  ${table} SET ${arrayToUPDATE(values, attributes)} ${prepareWhere(
       where
     )}`
@@ -157,8 +157,8 @@ const select = async (
   end = 0,
   count = 0
 ) => {
-  const connectionA = db;
-  const [rows] = await connectionA.execute(
+  const connectionA = connection.db;
+  const [rows] = await connectionA?.execute(
     `SELECT ${
       attributes ? attributes.toString() : "*"
     } FROM ${table} ${prepareWhere(where)} ${preparePagination(
@@ -176,8 +176,8 @@ const select = async (
  * @param {any} where
  */
 const deleteDocuments = async (table, where) => {
-  const connectionA = db;
-  const result = await connectionA.execute(
+  const connectionA = connection.db;
+  const result = await connectionA?.execute(
     `DELETE FROM ${table} ${prepareWhere(where)}`
   );
   return result;

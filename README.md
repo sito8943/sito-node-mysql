@@ -5,8 +5,8 @@ sito-node-mysql
 # Create connection
 
 ```
-    const { createConnection } = require("sito-node-mysql");
-    createConnection({host, user, password, database});
+    const { connection } = require("sito-node-mysql");
+    connection.init({host, user, password, database});
     // you can initialize your connection in the application
 
 ```
