@@ -107,7 +107,7 @@ const preparePagination = (start, end, count) => {
  *
  * @param {string} table
  * @param {string[]} attributes
- * @param {any} values
+ * @param {object} values
  * @returns
  */
 const insert = async (table, attributes, values) => {
@@ -126,8 +126,8 @@ const insert = async (table, attributes, values) => {
  *
  * @param {string} table
  * @param {string[]} attributes
- * @param {any} values
- * @param {string} where
+ * @param {object} values
+ * @param {any} where
  * @returns
  */
 const update = async (table, attributes, values, where) => {
