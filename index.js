@@ -96,9 +96,9 @@ const prepareWhere = (where) => {
  */
 const preparePagination = (start, end, count) => {
   if (start > 0 || count > 0) {
-    if (start && end) return `${start},${end}`;
-    else if (start && !end) return `${start},18446744073709551615`;
-    if (!start && !end) return `${count}`;
+    if (start && end) return `LIMIT ${start},${end}`;
+    else if (start && !end) return `LIMIT ${start},18446744073709551615`;
+    if (!start && !end) return `LIMIT ${count}`;
   }
   return "";
 };
