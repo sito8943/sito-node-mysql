@@ -95,7 +95,7 @@ const prepareWhere = (where) => {
  * @param {number} count
  */
 const preparePagination = (start, end, count) => {
-  if (start || count) {
+  if (start > 0 || count > 0) {
     if (start && end) return `${start},${end}`;
     else if (start && !end) return `${start},18446744073709551615`;
     if (!start && !end) return `${count}`;
@@ -155,7 +155,8 @@ const select = async (
   where,
   start = 0,
   end = 0,
-  count = 0
+  count = 0,
+  orderBy = ""
 ) => {
   const connectionA = connection.db;
   const [rows] = await connectionA?.execute(
@@ -165,7 +166,7 @@ const select = async (
       start,
       end,
       count
-    )}`
+    )} ${orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""}`
   );
   return { rows };
 };
