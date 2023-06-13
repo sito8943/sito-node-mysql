@@ -124,7 +124,7 @@ const insert = async (table, attributes, values) => {
  *
  * @param {string} table
  * @param {string[]} attributes
- * @param {any[]} values
+ * @param {any} values
  * @param {string} where
  * @returns
  */
