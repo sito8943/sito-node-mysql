@@ -69,6 +69,7 @@ const prepareWhere = (where) => {
           }
         }
       );
+      return string;
     } else if (where.attribute && where.operator && where.value) {
       const { attribute, operator, value, value1 } = where;
       switch (operator) {
