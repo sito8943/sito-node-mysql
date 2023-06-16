@@ -161,7 +161,7 @@ const select = async (
   const connectionA = connection.db;
   const [rows] = await connectionA?.execute(
     `SELECT ${
-      attributes ? attributes.toString() : "*"
+      attributes && attributes.length ? attributes.toString() : "*"
     } FROM ${table} ${prepareWhere(where)} ${preparePagination(
       start,
       end,
