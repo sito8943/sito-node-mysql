@@ -56,17 +56,17 @@ const prepareWhere = (where) => {
           const { attribute, operator, value, value1, logic } = cond;
           switch (operator) {
             case "BETWEEN":
-              string += `${
+              string += ` ${
                 i !== 0 ? logic : ""
               } BETWEEN ${value} AND ${value1}`;
               break;
             case "IN":
-              string += `${
+              string += ` ${
                 i !== 0 ? logic : ""
               } ${attribute} IN (${value.toString()})`;
               break;
             default:
-              string += `${i !== 0 ? logic : ""} ${attribute} ${operator} ${
+              string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
                 typeof value === "string" ? `'${value}'` : value
               }`;
               break;
