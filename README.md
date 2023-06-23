@@ -42,7 +42,7 @@ _Using [mysql2](https://www.npmjs.com/package/mysql2)_
 
 ```
 
-## select (table: string, attributes: string[], where: any, start, end, count)
+## select (table: string || string[], attributes: string[], where: any, start, end, count)
 
 ```
     const { select } = require("sito-node-mysql");

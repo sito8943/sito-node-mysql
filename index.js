@@ -147,7 +147,7 @@ const update = async (table, attributes, values, where) => {
 
 /**
  *
- * @param {string} table
+ * @param {any} table
  * @param {string[]} attributes
  * @param {any} where
  * @param {number} count
@@ -167,11 +167,11 @@ const select = async (
   const [rows] = await connectionA?.execute(
     `SELECT ${
       attributes && attributes.length ? attributes.toString() : "*"
-    } FROM ${table} ${prepareWhere(where)} ${preparePagination(
-      start,
-      end,
-      count
-    )} ${orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""}`
+    } FROM ${
+      typeof table === "string" ? table : table.toString()
+    } ${prepareWhere(where)} ${preparePagination(start, end, count)} ${
+      orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""
+    }`
   );
   return { rows };
 };
