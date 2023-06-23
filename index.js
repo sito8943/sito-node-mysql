@@ -44,7 +44,7 @@ const arrayToUPDATE = (array, attributes) => {
 /**
  * @param {any} where
  */
-const prepareWhere = (where) => {
+const prepareWhere = (table, where) => {
   try {
     if (where.length) {
       let string = "WHERE";
@@ -67,7 +67,10 @@ const prepareWhere = (where) => {
               break;
             default:
               string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
-                typeof value === "string" ? `'${value}'` : value
+                typeof value === "string" &&
+                table.indexOf(value.split(".")[0]) < 0
+                  ? `'${value}'`
+                  : value
               }`;
               break;
           }
@@ -139,6 +142,7 @@ const update = async (table, attributes, values, where) => {
   const connectionA = connection.db;
   const result = await connectionA?.execute(
     `UPDATE  ${table} SET ${arrayToUPDATE(values, attributes)} ${prepareWhere(
+      table,
       where
     )}`
   );
@@ -169,7 +173,7 @@ const select = async (
       attributes && attributes.length ? attributes.toString() : "*"
     } FROM ${
       typeof table === "string" ? table : table.toString()
-    } ${prepareWhere(where)} ${preparePagination(start, end, count)} ${
+    } ${prepareWhere(table, where)} ${preparePagination(start, end, count)} ${
       orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""
     }`
   );
@@ -184,7 +188,7 @@ const select = async (
 const deleteDocuments = async (table, where) => {
   const connectionA = connection.db;
   const result = await connectionA?.execute(
-    `DELETE FROM ${table} ${prepareWhere(where)}`
+    `DELETE FROM ${table} ${prepareWhere(table, where)}`
   );
   return result;
 };
