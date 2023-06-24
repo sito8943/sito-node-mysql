@@ -113,6 +113,19 @@ const preparePagination = (start, end, count) => {
 
 /**
  *
+ * @param {string[]} attributes
+ */
+const attributesToString = (attributes) => {
+  let result = "";
+  attributes.forEach((att, i) => {
+    result += att;
+    if (i < attributes.length - 1) result += ",";
+  });
+  return result;
+};
+
+/**
+ *
  * @param {string} table
  * @param {string[]} attributes
  * @param {object} values
@@ -122,10 +135,9 @@ const insert = async (table, attributes, values) => {
   const id = v4();
   const connectionA = connection.db;
   await connectionA?.execute(
-    `INSERT INTO ${table}(${attributes.toString()}) VALUES(${arrayToSQL(
-      { id, ...values },
+    `INSERT INTO ${table}(${attributesToString(
       attributes
-    )})`
+    )}) VALUES(${arrayToSQL({ id, ...values }, attributes)})`
   );
   return id;
 };
@@ -170,7 +182,7 @@ const select = async (
   const connectionA = connection.db;
   const [rows] = await connectionA?.execute(
     `SELECT ${
-      attributes && attributes.length ? attributes.toString() : "*"
+      attributes && attributes.length ? attributesToString(attributes) : "*"
     } FROM ${
       typeof table === "string" ? table : table.toString()
     } ${prepareWhere(table, where)} ${preparePagination(start, end, count)} ${
