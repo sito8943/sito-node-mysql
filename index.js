@@ -53,26 +53,32 @@ const prepareWhere = (table, where) => {
           /** @type {{ attribute: any; operator: any; value: any; value1: any; logic: any; }} */ cond,
           /** @type {number} */ i
         ) => {
-          const { attribute, operator, value, value1, logic } = cond;
-          switch (operator) {
-            case "BETWEEN":
-              string += ` ${
-                i !== 0 ? logic : ""
-              } BETWEEN ${value} AND ${value1}`;
-              break;
-            case "IN":
-              string += ` ${
-                i !== 0 ? logic : ""
-              } ${attribute} IN (${value.toString()})`;
-              break;
-            default:
-              string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
-                typeof value === "string" &&
-                table.indexOf(value.split(".")[0]) < 0
-                  ? `'${value}'`
-                  : value
-              }`;
-              break;
+          if (
+            cond.attribute !== undefined &&
+            cond.operator !== undefined &&
+            cond.value !== undefined
+          ) {
+            const { attribute, operator, value, value1, logic } = cond;
+            switch (operator) {
+              case "BETWEEN":
+                string += ` ${
+                  i !== 0 ? logic : ""
+                } BETWEEN ${value} AND ${value1}`;
+                break;
+              case "IN":
+                string += ` ${
+                  i !== 0 ? logic : ""
+                } ${attribute} IN (${value.toString()})`;
+                break;
+              default:
+                string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
+                  typeof value === "string" &&
+                  table.indexOf(value.split(".")[0]) < 0
+                    ? `'${value}'`
+                    : value
+                }`;
+                break;
+            }
           }
         }
       );
