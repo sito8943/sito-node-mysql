@@ -77,7 +77,11 @@ const prepareWhere = (table, where) => {
         }
       );
       return string;
-    } else if (where.attribute && where.operator && where.value) {
+    } else if (
+      where.attribute !== undefined &&
+      where.operator !== undefined &&
+      where.value !== undefined
+    ) {
       const { attribute, operator, value, value1 } = where;
       switch (operator) {
         case "BETWEEN":
