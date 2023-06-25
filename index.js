@@ -11,7 +11,7 @@ const { v4 } = require("uuid");
 const arrayToSQL = (array, attributes) => {
   let string = "";
   attributes.forEach((attribute, i) => {
-    if (array[attribute])
+    if (array[attribute] !== undefined)
       string += `${
         typeof array[attribute] === "string"
           ? `'${array[attribute]}'`
@@ -30,7 +30,7 @@ const arrayToSQL = (array, attributes) => {
 const arrayToUPDATE = (array, attributes) => {
   let string = "";
   attributes.forEach((attribute, i) => {
-    if (array[attribute])
+    if (array[attribute] !== undefined)
       string += `${attribute} = ${
         typeof array[attribute] === "string"
           ? `'${array[attribute]}'`
