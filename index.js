@@ -48,6 +48,7 @@ const prepareWhere = (table, where) => {
   try {
     if (where.length) {
       let string = "WHERE";
+      let atLeastOne = false;
       where.forEach(
         (
           /** @type {{ attribute: any; operator: any; value: any; value1: any; logic: any; }} */ cond,
@@ -58,6 +59,7 @@ const prepareWhere = (table, where) => {
             cond.operator !== undefined &&
             cond.value !== undefined
           ) {
+            atLeastOne = true;
             const { attribute, operator, value, value1, logic } = cond;
             switch (operator) {
               case "BETWEEN":
@@ -82,7 +84,8 @@ const prepareWhere = (table, where) => {
           }
         }
       );
-      return string;
+      if (atLeastOne) return string;
+      return "";
     } else if (
       where.attribute !== undefined &&
       where.operator !== undefined &&
