@@ -74,8 +74,9 @@ const prepareWhere = (table, where) => {
                 break;
               default:
                 string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
-                  typeof value === "string" &&
-                  table.indexOf(value.split(".")[0]) < 0
+                  (typeof value === "string" &&
+                    table.indexOf(value.split(".")[0]) < 0) ||
+                  value.length === 0
                     ? `'${value}'`
                     : value
                 }`;
