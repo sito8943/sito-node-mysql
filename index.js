@@ -120,7 +120,7 @@ const preparePagination = (start, end, count) => {
   if (start > 0 || count > 0) {
     if (start && end) return `LIMIT ${start},${end}`;
     else if (start && !end) return `LIMIT ${start},18446744073709551615`;
-    if (!start && !end) return `LIMIT ${count}`;
+    if (!start && !end) return `LIMIT ${end}`;
   }
   return "";
 };
@@ -190,7 +190,6 @@ const select = async (
   where,
   start = 0,
   end = 0,
-  count = 0,
   orderBy = ""
 ) => {
   const connectionA = connection.db;
@@ -199,7 +198,7 @@ const select = async (
       attributes && attributes.length ? attributesToString(attributes) : "*"
     } FROM ${
       typeof table === "string" ? table : table.toString()
-    } ${prepareWhere(table, where)} ${preparePagination(start, end, count)} ${
+    } ${prepareWhere(table, where)} ${preparePagination(start, end)} ${
       orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""
     }`
   );
