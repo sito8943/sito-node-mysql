@@ -114,10 +114,9 @@ const prepareWhere = (table, where) => {
  *
  * @param {number} start
  * @param {number} end
- * @param {number} count
  */
-const preparePagination = (start, end, count) => {
-  if (start > 0 || count > 0) {
+const preparePagination = (start, end) => {
+  if (start >= 0) {
     if (start && end) return `LIMIT ${start},${end}`;
     else if (start && !end) return `LIMIT ${start},18446744073709551615`;
     if (!start && !end) return `LIMIT ${end}`;
@@ -180,7 +179,6 @@ const update = async (table, attributes, values, where) => {
  * @param {any} table
  * @param {string[]} attributes
  * @param {any} where
- * @param {number} count
  * @param {number} start
  * @param {number} end
  */
