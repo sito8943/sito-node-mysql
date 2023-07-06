@@ -196,9 +196,9 @@ const select = async (
       attributes && attributes.length ? attributesToString(attributes) : "*"
     } FROM ${
       typeof table === "string" ? table : table.toString()
-    } ${prepareWhere(table, where)} ${preparePagination(start, end)} ${
+    } ${prepareWhere(table, where)} ${
       orderBy && orderBy.length ? `ORDER BY ${orderBy}` : ""
-    }`
+    } ${preparePagination(start, end)} `
   );
   return { rows };
 };

@@ -1,6 +1,6 @@
 {
   "name": "sito-node-mysql",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "node interface for mysql",
   "main": "index.js",
   "scripts": {
