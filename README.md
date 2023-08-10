@@ -1,6 +1,6 @@
 # sito-node-mysql
 
-sito-node-mysql
+sito-node-mysql @1.10.1
 
 # Create connection
 

@@ -184,8 +184,8 @@ const update = async (table, attributes, values, where) => {
  */
 const select = async (
   table,
-  attributes,
-  where,
+  attributes = [],
+  where = [],
   start = 0,
   end = 0,
   orderBy = ""
