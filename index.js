@@ -68,13 +68,13 @@ const prepareWhere = (table, where) => {
             if (parenthesis === "(") string += `${parenthesis} `;
             switch (operator) {
               case "BETWEEN":
-                string += `BETWEEN ${value} AND ${value1}`;
+                string += ` BETWEEN ${value} AND ${value1}`;
                 break;
               case "IN":
-                string += `${attribute} IN (${value.toString()})`;
+                string += ` ${attribute} IN (${value.toString()})`;
                 break;
               default:
-                string += `${attribute} ${operator} ${
+                string += ` ${attribute} ${operator} ${
                   (typeof value === "string" &&
                     table.indexOf(value.split(".")[0]) < 0) ||
                   value.length === 0
