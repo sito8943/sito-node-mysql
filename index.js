@@ -56,13 +56,15 @@ const prepareWhere = (table, where) => {
           /** @type {number} */ i
         ) => {
           if (
-            cond.attribute !== undefined &&
-            cond.operator !== undefined &&
-            cond.value !== undefined
+            (cond.attribute !== undefined &&
+              cond.operator !== undefined &&
+              cond.value !== undefined) ||
+            cond.parenthesis
           ) {
             atLeastOne = true;
-            const { attribute, operator, value, value1, logic, parenthesis } = cond;
-            if (parenthesis) string += ` ${parenthesis} `
+            const { attribute, operator, value, value1, logic, parenthesis } =
+              cond;
+            if (parenthesis) string += ` ${parenthesis} `;
             switch (operator) {
               case "BETWEEN":
                 string += ` ${
