@@ -64,31 +64,29 @@ const prepareWhere = (table, where) => {
             atLeastOne = true;
             const { attribute, operator, value, value1, logic, parenthesis } =
               cond;
-            if (parenthesis) string += ` ${parenthesis} `;
-            else
-              switch (operator) {
-                case "BETWEEN":
-                  string += ` ${
-                    i !== 0 ? logic : ""
-                  } BETWEEN ${value} AND ${value1}`;
-                  break;
-                case "IN":
-                  string += ` ${
-                    i !== 0 ? logic : ""
-                  } ${attribute} IN (${value.toString()})`;
-                  break;
-                default:
-                  string += ` ${
-                    i !== 0 ? logic : ""
-                  } ${attribute} ${operator} ${
-                    (typeof value === "string" &&
-                      table.indexOf(value.split(".")[0]) < 0) ||
-                    value.length === 0
-                      ? `'${value}'`
-                      : value
-                  }`;
-                  break;
-              }
+            if (parenthesis === "(") string += ` ${parenthesis} `;
+            switch (operator) {
+              case "BETWEEN":
+                string += ` ${
+                  i !== 0 ? logic : ""
+                } BETWEEN ${value} AND ${value1}`;
+                break;
+              case "IN":
+                string += ` ${
+                  i !== 0 ? logic : ""
+                } ${attribute} IN (${value.toString()})`;
+                break;
+              default:
+                string += ` ${i !== 0 ? logic : ""} ${attribute} ${operator} ${
+                  (typeof value === "string" &&
+                    table.indexOf(value.split(".")[0]) < 0) ||
+                  value.length === 0
+                    ? `'${value}'`
+                    : value
+                }`;
+                break;
+            }
+            if (parenthesis === ")") string += ` ${parenthesis} `;
           }
         }
       );
