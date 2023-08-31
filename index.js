@@ -64,12 +64,11 @@ const prepareWhere = (table, where) => {
             atLeastOne = true;
             const { attribute, operator, value, value1, logic, parenthesis } =
               cond;
-            if (parenthesis === "(") string += ` ${parenthesis} `;
             switch (operator) {
               case "BETWEEN":
                 string += ` ${
                   i !== 0 ? logic : ""
-                } BETWEEN ${value} AND ${value1}`;
+                } BETWEEN ${value} AND  ${value1}`;
                 break;
               case "IN":
                 string += ` ${
@@ -86,7 +85,7 @@ const prepareWhere = (table, where) => {
                 }`;
                 break;
             }
-            if (parenthesis === ")") string += ` ${parenthesis} `;
+            if (parenthesis) string += ` ${parenthesis} `;
           }
         }
       );
