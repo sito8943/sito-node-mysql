@@ -42,6 +42,7 @@ const arrayToUPDATE = (array, attributes) => {
 };
 
 /**
+ * @param {string} table
  * @param {any} where
  */
 const prepareWhere = (table, where) => {
@@ -51,7 +52,7 @@ const prepareWhere = (table, where) => {
       let atLeastOne = false;
       where.forEach(
         (
-          /** @type {{ attribute: any; operator: any; value: any; value1: any; logic: any; }} */ cond,
+          /** @type {{ attribute: string; operator: string; value: any; value1: any; logic: string; parenthesis: string }} */ cond,
           /** @type {number} */ i
         ) => {
           if (
@@ -60,7 +61,8 @@ const prepareWhere = (table, where) => {
             cond.value !== undefined
           ) {
             atLeastOne = true;
-            const { attribute, operator, value, value1, logic } = cond;
+            const { attribute, operator, value, value1, logic, parenthesis } = cond;
+            if (parenthesis) string += ` ${parenthesis} `
             switch (operator) {
               case "BETWEEN":
                 string += ` ${

@@ -74,6 +74,7 @@ _Using [mysql2](https://www.npmjs.com/package/mysql2)_
     operator: "=" // can be =, >, <, >=, <=, <>, BETWEEN, LIKE, IN
     value: "string", // or number, NOTE can be and array if you are using IN operator
     value1: "string" or number // if you are using BETWEEN operator
+    parenthesis: string // this will type the 'parenthesis' '(' or ')' exactly in the location
 }
 ```
 
